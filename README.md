@@ -1,1 +1,2 @@
 # TrainingRecord
+Create by GAS!!

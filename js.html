@@ -1,0 +1,94 @@
+<script>
+function input_to_sheet() {
+
+  // ベンチプレスの値取得
+  var benchpress = document.getElementsByName( "benchpress" ) ;
+  var benchpressValue = "";
+  for (var i=benchpress.length; i--; ) {
+    if ( benchpress[i].checked ) {
+      benchpressValue = benchpress[i].value ;
+      break ;
+    }
+  }
+
+  // スクワットの値取得
+  var roversquat = document.getElementsByName( "roversquat" ) ;
+  var roversquatValue = "";
+  for (var i=roversquat.length; i--; ) {
+    if ( roversquat[i].checked ) {
+      roversquatValue = roversquat[i].value ;
+      break ;
+    }
+  }
+
+  // レッグカールの値取得
+  var legcurl = document.getElementsByName( "legcurl" ) ;
+  var legcurlValue = "";
+  for (var i=legcurl.length; i--; ) {
+    if ( legcurl[i].checked ) {
+      legcurlValue = legcurl[i].value ;
+      break ;
+    }
+  }
+
+  // チンニングの値取得
+  var chinning = document.getElementsByName( "chinning" ) ;
+  var chinningValue = "";
+  for (var i=chinning.length; i--; ) {
+    if ( chinning[i].checked ) {
+      chinningValue = chinning[i].value ;
+      break ;
+    }
+  }
+
+  // サイドレイズの値取得
+  var sideaise = document.getElementsByName( "sideaise" ) ;
+  var sideaiseValue = "";
+  for (var i=sideaise.length; i--; ) {
+    if ( sideaise[i].checked ) {
+      sideaiseValue = sideaise[i].value ;
+      break ;
+    }
+  }
+
+  // コメント取得
+  var comment = document.getElementById("comment").value;
+
+  //スプレッドシートに書き込み
+  google.script.run
+  .withFailureHandler(onFailure)
+  .withSuccessHandler(onSuccess)
+  .input_to_sheet_gs(benchpressValue,roversquatValue,legcurlValue,chinningValue,sideaiseValue,comment);
+}
+
+function onSuccess(result) {
+
+  //入力フォームを全てクリア
+  document.getElementById("comment").value="";
+  for (const element of document.getElementsByName('benchpress')) {
+    element.checked = false;
+  }
+  for (const element of document.getElementsByName('roversquat')) {
+    element.checked = false;
+  }
+  for (const element of document.getElementsByName('legcurl')) {
+    element.checked = false;
+  }
+  for (const element of document.getElementsByName('chinning')) {
+    element.checked = false;
+  }
+  for (const element of document.getElementsByName('sideaise')) {
+    element.checked = false;
+  }
+  Swal.fire({
+    type: 'success',
+    title: '登録完了',
+    footer: '<a href="https://docs.google.com/spreadsheets/d/1csUsQ3XiVB4GkkBqSPLtbZqLj2gJTC5Ab9RSXV_-uWI/edit#gid=740980208"　target="_blank">スプレッドシートを開く</a>'
+  })
+}
+
+function onFailure(e) {
+  alert([e.message, e.stack]);
+}
+
+</script>
